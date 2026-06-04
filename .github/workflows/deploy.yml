@@ -1,9 +1,10 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy Demo1 Vite to GitHub Pages
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,6 +18,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: demo1-bar-model
 
     steps:
       - name: Checkout
@@ -36,7 +41,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: demo1-bar-model/dist
 
   deploy:
     environment:
@@ -44,7 +49,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
-
     needs: build
 
     steps:
