@@ -1,4 +1,4 @@
-name: Deploy Demo1 Vite to GitHub Pages
+name: Deploy Demo1 Bar Model to GitHub Pages
 
 on:
   push:
@@ -38,10 +38,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare Pages Output
+        run: |
+          mkdir -p ../pages-output/demo1-bar-model
+          cp -R dist/* ../pages-output/demo1-bar-model/
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: demo1-bar-model/dist
+          path: pages-output
 
   deploy:
     environment:
